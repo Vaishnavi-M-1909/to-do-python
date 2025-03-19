@@ -100,7 +100,6 @@ def update_clock():
         time.sleep(1)
 
 # Initialize main window
-root = tk.Tk()
 root.title("📝 To-Do List")
 root.geometry("400x500")
 root.configure(bg="#E6E6FA")
