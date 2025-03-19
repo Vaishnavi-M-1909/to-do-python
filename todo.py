@@ -54,7 +54,7 @@ def main():
             st.rerun()
 
     for idx, task in enumerate(tasks):
-        col1, col2, col3, col4 = st.columns([0.6, 0.15, 0.15, 0.1])
+        col1, col2, col3, col4, col5 = st.columns([0.5, 0.15, 0.1, 0.1, 0.1])
         with col1:
             if task['completed']:
                 st.write(f"✅ {task['task']}")
@@ -72,6 +72,16 @@ def main():
         with col3:
             if st.button("🗑", key=f"delete_{idx}"):
                 tasks.pop(idx)
+                save_tasks(tasks)
+                st.rerun()
+        with col4:
+            if idx > 0 and st.button("⬆", key=f"up_{idx}"):
+                tasks[idx], tasks[idx-1] = tasks[idx-1], tasks[idx]
+                save_tasks(tasks)
+                st.rerun()
+        with col5:
+            if idx < len(tasks) - 1 and st.button("⬇", key=f"down_{idx}"):
+                tasks[idx], tasks[idx+1] = tasks[idx+1], tasks[idx]
                 save_tasks(tasks)
                 st.rerun()
     
