@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-import time
 import pytz
 from datetime import datetime
 
@@ -25,27 +24,8 @@ def get_ist_time():
 def main():
     st.set_page_config(page_title="📝 To-Do List", layout="centered")
     
-    # Dark Mode Toggle
-    if "dark_mode" not in st.session_state:
-        st.session_state.dark_mode = False
-    
-    st.sidebar.title("Settings")
-    if st.sidebar.button("🌙 Toggle Dark Mode" if not st.session_state.dark_mode else "☀ Toggle Light Mode"):
-        st.session_state.dark_mode = not st.session_state.dark_mode
-        st.rerun()
-
-    # Background color and text color
-    bg_color = "#000000" if st.session_state.dark_mode else "#D8BFD8"  # Light purple in light mode, black in dark mode
-    text_color = "white" if st.session_state.dark_mode else "black"
-    
-    st.markdown(f"""
-        <style>
-            .main {{ background-color: {bg_color}; color: {text_color}; }}
-        </style>
-    """, unsafe_allow_html=True)
-
     st.title("📝 To-Do List")
-
+    
     tasks = load_tasks()
 
     new_task = st.text_input("Add a new task:")
