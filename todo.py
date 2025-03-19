@@ -34,7 +34,7 @@ def main():
         st.session_state.dark_mode = not st.session_state.dark_mode
 
     # Background color
-    bg_color = "#2E3B4E" if st.session_state.dark_mode else "#E6E6FA"
+    bg_color = "#000000" if st.session_state.dark_mode else "#D8BFD8"  # Light purple in light mode, black in dark mode
     text_color = "white" if st.session_state.dark_mode else "black"
     st.markdown(f"""
         <style>
