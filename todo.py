@@ -28,7 +28,7 @@ def main():
         if new_task.strip():
             tasks.append({"task": new_task.strip(), "completed": False})
             save_tasks(tasks)
-            st.experimental_rerun()
+            st.rerun()  # Updated from st.experimental_rerun()
 
     for idx, task in enumerate(tasks):
         col1, col2, col3 = st.columns([0.7, 0.15, 0.15])
@@ -38,12 +38,12 @@ def main():
             if st.button("✔", key=f"complete_{idx}"):
                 tasks[idx]["completed"] = not tasks[idx]["completed"]
                 save_tasks(tasks)
-                st.experimental_rerun()
+                st.rerun()  # Updated from st.experimental_rerun()
         with col3:
             if st.button("🗑", key=f"delete_{idx}"):
                 tasks.pop(idx)
                 save_tasks(tasks)
-                st.experimental_rerun()
+                st.rerun()  # Updated from st.experimental_rerun()
 
     st.write("---")
     st.write(f"Current Time: {time.strftime('%I:%M:%S %p')}")
