@@ -1,5 +1,5 @@
-import tkinter as tk
-from tkinter import messagebox, simpledialog
+
+import streamlit as st
 import json
 import time
 import threading
