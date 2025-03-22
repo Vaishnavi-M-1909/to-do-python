@@ -29,6 +29,16 @@ def main():
     theme_option = st.sidebar.radio("Choose Theme", ["Light", "Dark"], index=0 if st.session_state.theme == "light" else 1)
     st.session_state.theme = "light" if theme_option == "Light" else "dark"
     
+    # Apply Theme
+    if st.session_state.theme == "dark":
+        dark_css = """
+        <style>
+        body { background-color: #1e1e1e; color: white; }
+        .stApp { background-color: #1e1e1e; }
+        </style>
+        """
+        st.markdown(dark_css, unsafe_allow_html=True)
+    
     st.sidebar.markdown("---")
     st.sidebar.write(f"Current Theme: {st.session_state.theme.capitalize()}")
     
@@ -40,7 +50,7 @@ def main():
         if new_task:
             st.session_state.tasks.append({"task": new_task, "done": False})
             save_tasks(st.session_state.tasks)
-            st.experimental_rerun()
+            st.rerun()
     
     st.markdown("### Tasks")
     
@@ -53,22 +63,21 @@ def main():
             if st.button("✔️", key=f"done_{i}"):
                 st.session_state.tasks[i]["done"] = True
                 save_tasks(st.session_state.tasks)
-                st.experimental_rerun()
+                st.rerun()
         
         with col3:
             if not task["done"]:
-                if st.button("✏️", key=f"edit_{i}"):
-                    new_text = st.text_input("Edit task", value=task["task"], key=f"edit_input_{i}")
-                    if st.button("Save", key=f"save_{i}"):
-                        st.session_state.tasks[i]["task"] = new_text
-                        save_tasks(st.session_state.tasks)
-                        st.experimental_rerun()
+                new_text = st.text_input("Edit task", value=task["task"], key=f"edit_input_{i}")
+                if st.button("Save", key=f"save_{i}"):
+                    st.session_state.tasks[i]["task"] = new_text
+                    save_tasks(st.session_state.tasks)
+                    st.rerun()
         
         with col4:
             if st.button("❌", key=f"delete_{i}"):
                 st.session_state.tasks.pop(i)
                 save_tasks(st.session_state.tasks)
-                st.experimental_rerun()
+                st.rerun()
     
     # Filtering tasks
     st.markdown("---")
